@@ -1,9 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Utils/Routes.dart';
+import 'package:flutter_application_1/Utils/routes.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = '';
+  bool changeButton = false;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -20,7 +28,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Welcome',
+                'Welcome $name',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -36,28 +44,65 @@ class LoginPage extends StatelessWidget {
                       hintText: 'Enter Username',
                       labelText: 'Username',
                     ),
+                    onChanged: (value) {
+                      name = value;
+                      setState(
+                          () {}); //setstate is used to change state ie refresh state // only used on StatefulWidget
+                    },
                   ),
                   TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Enter Password',
                       labelText: 'Password',
                     ),
+                    obscureText: true,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 40.0),
-                    child: ElevatedButton(
-                      onPressed: () {
+                    child: InkWell(
+                      onTap: () async{ 
+                        setState(() {
+                          changeButton = true;
+                        });
+
+                        await Future.delayed(Duration(seconds: 1,milliseconds: 50));
                         Navigator.pushNamed(context, MyRoutes.homeRoute);
                       },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(color: Colors.black),
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        width: changeButton ? 50 : 200,
+                        height: changeButton ? 50 : 100,
+                        alignment: Alignment.center,
+                        child: changeButton
+                            ? Icon(
+                                Icons.done,
+                                color: Colors.white,
+                              )
+                            : Text(
+                                'Login',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(changeButton ? 150 : 5)),
                       ),
-                      style: TextButton.styleFrom(
-                          backgroundColor: Colors.amberAccent,
-                          minimumSize: Size(220, 40)),
                     ),
-                  ),
+                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 40.0),
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       Navigator.pushNamed(context, MyRoutes.homeRoute);
+                  //     },
+                  //     child: Text(
+                  //       'Login',
+                  //       style: TextStyle(color: Colors.black),
+                  //     ),
+                  //     style: TextButton.styleFrom(
+                  //         backgroundColor: Colors.amberAccent,
+                  //         minimumSize: Size(220, 40)),
+                  //   ),
+                  // ),
                 ],
               ),
             )

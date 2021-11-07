@@ -8,6 +8,15 @@ void main() {
   runApp(MyApp());
 }
 
+//StatelessWidget = jab state yaani ek screen mei kuch change na ho toh vo statelesswidget use karti hai 
+
+//StatefulWidget = jab state change ho toh Statefulwidget use karte hai
+
+//for example statelesswidget mei hum welcome waali text ko change nhi kar sakte uske liye hum starting mei hi stateful widget lena chahiye tha
+
+
+
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,8 +29,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(), //by default slash waala hi chalta ahai first
-        MyRoutes.homeRoute : (context) => HomePage(),
-        MyRoutes.loginRoute : (context) => LoginPage(),
+        MyRoutes.homeRoute : (context) => HomePage(), 
+        MyRoutes.loginRoute : (context) => LoginPage(), 
       },
     );
   }
