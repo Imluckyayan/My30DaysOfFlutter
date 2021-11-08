@@ -12,7 +12,6 @@ class _LoginPageState extends State<LoginPage> {
   String name = '';
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
-  
 
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
@@ -66,10 +65,6 @@ class _LoginPageState extends State<LoginPage> {
                         if (value == null || value.isEmpty) {
                           return "Username can't be Empty";
                         }
-                        else(){
-                          return null;
-                        };
-                        
                         return null;
                       },
                       onChanged: (value) {
@@ -85,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       obscureText: true,
                       validator: (value) {
-                        if (value == null) {
+                        if (value == null || value.isEmpty) {
                           return "Passcode can't be Empty";
                         }
                         return null;

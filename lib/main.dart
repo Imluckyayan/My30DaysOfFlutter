@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(), //by default slash waala hi chalta ahai first
+        '/': (context) => HomePage(), //by default slash waala hi chalta ahai first
         MyRoutes.homeRoute : (context) => HomePage(), 
         MyRoutes.loginRoute : (context) => LoginPage(), 
       },
