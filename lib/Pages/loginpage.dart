@@ -11,102 +11,118 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String name = '';
   bool changeButton = false;
+  final _formKey = GlobalKey<FormState>();
+  
+
+  moveToHome(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(Duration(seconds: 1, milliseconds: 50));
+      await Navigator.pushNamed(context, MyRoutes.homeRoute);
+      setState(() {
+        changeButton = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
         color: Colors.white,
         child: SingleChildScrollView(
-          child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-              child: Image.asset(
-                'assets/images/undraw_secure_login_pdn4.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Welcome $name',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+          child: Form(
+            key: _formKey,
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                child: Image.asset(
+                  'assets/images/undraw_hey_email_liaa.png',
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter Username',
-                      labelText: 'Username',
-                    ),
-                    onChanged: (value) {
-                      name = value;
-                      setState(
-                          () {}); //setstate is used to change state ie refresh state // only used on StatefulWidget
-                    },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Welcome $name',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter Password',
-                      labelText: 'Password',
-                    ),
-                    obscureText: true,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
-                    child: InkWell(
-                      onTap: () async{ 
-                        setState(() {
-                          changeButton = true;
-                        });
-
-                        await Future.delayed(Duration(seconds: 1,milliseconds: 50));
-                        Navigator.pushNamed(context, MyRoutes.homeRoute);
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter Username',
+                        labelText: 'Username',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Username can't be Empty";
+                        }
+                        else(){
+                          return null;
+                        };
+                        
+                        return null;
                       },
-                      child: AnimatedContainer(
-                        duration: Duration(seconds: 1),
-                        width: changeButton ? 50 : 200,
-                        height: changeButton ? 50 : 100,
-                        alignment: Alignment.center,
-                        child: changeButton
-                            ? Icon(
-                                Icons.done,
-                                color: Colors.white,
-                              )
-                            : Text(
-                                'Login',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(changeButton ? 150 : 5)),
+                      onChanged: (value) {
+                        name = value;
+                        setState(
+                            () {}); //setstate is used to change state ie refresh state // only used on StatefulWidget
+                      },
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter Password',
+                        labelText: 'Password',
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null) {
+                          return "Passcode can't be Empty";
+                        }
+                        return null;
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Material(
+                        borderRadius:
+                            BorderRadius.circular(changeButton ? 150 : 8),
+                        color: Colors.black,
+                        child: InkWell(
+                          splashColor: Colors.white38,
+                          onTap: () => moveToHome(context),
+                          child: AnimatedContainer(
+                            duration: Duration(seconds: 1),
+                            width: changeButton ? 50 : 200,
+                            height: changeButton ? 50 : 100,
+                            alignment: Alignment.center,
+                            child: changeButton
+                                ? Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  )
+                                : Text(
+                                    'Login',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                          ),
+                        ),
                       ),
                     ),
-                  )
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 40.0),
-                  //   child: ElevatedButton(
-                  //     onPressed: () {
-                  //       Navigator.pushNamed(context, MyRoutes.homeRoute);
-                  //     },
-                  //     child: Text(
-                  //       'Login',
-                  //       style: TextStyle(color: Colors.black),
-                  //     ),
-                  //     style: TextButton.styleFrom(
-                  //         backgroundColor: Colors.amberAccent,
-                  //         minimumSize: Size(220, 40)),
-                  //   ),
-                  // ),
-                ],
-              ),
-            )
-          ]),
+                  ],
+                ),
+              )
+            ]),
+          ),
         ));
   }
 }
