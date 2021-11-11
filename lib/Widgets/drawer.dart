@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Pages/homepage.dart';
 import 'package:flutter_application_1/Pages/loginpage.dart';
 import 'package:flutter_application_1/Utils/routes.dart';
 
@@ -58,9 +57,7 @@ class MyDrawer extends StatelessWidget {
                 'Logout',
                 textScaleFactor: 1.3, 
                 ),
-              onTap: () => MyRoutes.loginRoute,
               ),
-              
           ],
         ),
       ),

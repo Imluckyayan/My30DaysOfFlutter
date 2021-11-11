@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Imluckyayan"),
-        backgroundColor: Colors.redAccent,
       ), // AppBar
       body: Column(
         children: [
